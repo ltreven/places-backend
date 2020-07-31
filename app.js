@@ -8,6 +8,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const cors         = require('cors');
 
 
 mongoose
@@ -45,14 +46,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'The best places of my life API';
 
+app.use(
+  cors({
+    credentials: true,
+    origin: ['http://localhost:3001', 'http://localhost:3000'] // <== aceptar llamadas desde este dominio
+  })
+);
 
 
 const index = require('./routes/index');
 app.use('/', index);
+const places = require('./routes/places');
+app.use('/api/places', places);
+const address = require('./routes/address');
+app.use('/api/address', address);
 
 
 module.exports = app;

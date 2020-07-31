@@ -17,6 +17,10 @@ const schema = new Schema(
         type: [Number],
         required: true
       }
+    },
+    highlight: {
+      type: Boolean,
+      default: false
     }
   },
   {
